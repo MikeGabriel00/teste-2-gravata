@@ -1,0 +1,617 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operação Lua de Mel ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<style>
+:root {
+  --cream:#f8f6ef;
+  --olive:#596747;
+  --dark:#35452f;
+  --gold:#c5a15c;
+  --border:#e8e3d7;
+  --text:#393c32;
+  --muted:#858477;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  padding:24px 15px 50px;
+}
+.container{max-width:520px;margin:auto}
+.card{
+  background:white;
+  border-radius:22px;
+  padding:28px 22px;
+  margin-bottom:17px;
+  box-shadow:0 8px 35px rgba(60,60,40,.045);
+  border:1px solid rgba(197,161,92,.13);
+}
+.hero{
+  text-align:center;
+  padding:35px 22px;
+  background:linear-gradient(145deg,#fff,#f5f2e8);
+  border-color:#e8d6a9;
+}
+.eyebrow{
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:3px;
+  font-weight:700;
+}
+.tie{font-size:62px;margin:17px 0}
+h1,h2,h3{font-family:'Playfair Display',serif}
+h1{
+  color:var(--dark);
+  font-size:34px;
+  line-height:1.2;
+  margin:12px 0;
+}
+.couple{
+  color:var(--gold);
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:23px;
+  margin:12px 0;
+}
+.description{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:13px;
+  margin-top:15px;
+}
+.section-title{font-size:21px;color:var(--dark);margin-bottom:7px}
+.section-subtitle{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:20px;
+  line-height:1.6;
+}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.value-btn{
+  padding:17px 8px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:white;
+  cursor:pointer;
+  color:var(--text);
+  font-family:inherit;
+}
+.value-btn strong{
+  display:block;
+  font-size:19px;
+  color:var(--olive);
+  margin-bottom:5px;
+}
+.value-btn small{color:var(--muted);font-size:10px}
+.value-btn.active,.value-btn:hover{
+  border-color:var(--gold);
+  background:#f9f6ed;
+}
+input,textarea{
+  width:100%;
+  padding:14px;
+  border-radius:11px;
+  border:1px solid var(--border);
+  outline:none;
+  font-family:inherit;
+  font-size:14px;
+  color:var(--text);
+  background:white;
+  margin-top:7px;
+}
+input:focus,textarea:focus{border-color:var(--gold)}
+label{font-size:12px;font-weight:700;display:block;margin-top:17px}
+textarea{resize:vertical;min-height:90px}
+.pix-key{
+  padding:17px;
+  background:#f8f7f1;
+  border:1px dashed var(--gold);
+  border-radius:12px;
+  text-align:center;
+  margin:15px 0;
+  overflow-wrap:anywhere;
+}
+.pix-key strong{color:var(--dark);font-size:14px}
+.pix-key small{display:block;color:var(--muted);margin-top:7px;font-size:11px}
+.btn{
+  border:none;
+  background:var(--olive);
+  color:white;
+  width:100%;
+  padding:16px;
+  border-radius:12px;
+  font-family:inherit;
+  font-weight:700;
+  cursor:pointer;
+  font-size:14px;
+}
+.btn:hover:not(:disabled){background:var(--dark)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-gold{background:var(--gold)}
+.pix-info{text-align:center;font-size:12px;color:var(--muted);line-height:1.7}
+.qr-placeholder{
+  border:2px dashed var(--border);
+  border-radius:15px;
+  padding:22px;
+  text-align:center;
+  margin-top:15px;
+  background:#fcfbf8;
+}
+.qr-placeholder img{
+  width:155px;height:155px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto 10px;
+}
+.upload{
+  display:block;
+  padding:20px;
+  text-align:center;
+  background:#f8f7f1;
+  border:1px dashed var(--gold);
+  border-radius:12px;
+  cursor:pointer;
+  margin-top:8px;
+}
+.upload input{display:none}
+.file-name{
+  font-size:12px;
+  color:var(--olive);
+  margin-top:12px;
+  overflow-wrap:anywhere;
+}
+.preview{
+  max-width:100%;
+  max-height:180px;
+  display:none;
+  margin:12px auto 0;
+  border-radius:10px;
+}
+.notice{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.6;
+  margin-top:12px;
+}
+.success{display:none;text-align:center}
+.ticket{
+  background:linear-gradient(145deg,#35452f,#657650);
+  color:white;
+  border-radius:18px;
+  padding:28px 20px;
+  margin:20px 0;
+  position:relative;
+  overflow:hidden;
+}
+.ticket-label{font-size:10px;letter-spacing:3px;color:#e8d6a9}
+.ticket-number{
+  font-family:'Playfair Display',serif;
+  font-size:56px;
+  color:#f1d99e;
+  margin:15px 0;
+}
+.ticket-name{
+  font-size:19px;
+  margin-bottom:8px;
+  font-family:'Playfair Display',serif;
+}
+.thank-you{font-size:14px;color:var(--muted);line-height:1.8}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:20px 10px}
+.footer span{color:var(--gold)}
+.loading{display:none;margin-top:12px;font-size:12px;color:var(--olive);text-align:center}
+@media(max-width:360px){
+  h1{font-size:29px}
+  .card{padding:22px 16px}
+}
+@media print{
+  body{background:white;padding:0}
+  body *{visibility:hidden}
+  #success,#success *{visibility:visible}
+  #success{
+    display:block!important;
+    position:absolute;
+    top:0;left:0;width:100%;
+    box-shadow:none;
+  }
+  #printTicket{display:none}
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+<header class="card hero">
+  <p class="eyebrow">UMA CELEBRAÇÃO DE AMOR</p>
+  <div class="tie">👔</div>
+  <h1>Corte a Gravata<br>dos Noivos!</h1>
+  <p class="couple">Ana & Gabriel</p>
+  <p class="description">
+    Nossa lua de mel está chegando! 💍<br><br>
+    Que tal fazer parte dessa aventura?
+    Contribua com qualquer valor para ajudar
+    os noivos e ainda concorra a um
+    <strong>jantar especial!</strong>
+    <br><br>
+    Cada contribuição vale um número da sorte.
+    Boa sorte e obrigado pelo carinho!
+  </p>
+</header>
+
+<section class="card">
+  <h2 class="section-title">✦ Escolha sua contribuição</h2>
+  <p class="section-subtitle">
+    Todo carinho é bem-vindo. Escolha o valor que desejar!
+  </p>
+
+  <div class="values">
+    <button class="value-btn" data-value="20">
+      <strong>R$ 20</strong><small>☕ Para o cafezinho</small>
+    </button>
+    <button class="value-btn" data-value="50">
+      <strong>R$ 50</strong><small>👔 Um pedaço da gravata</small>
+    </button>
+    <button class="value-btn" data-value="100">
+      <strong>R$ 100</strong><small>🥂 Padrinho honorário</small>
+    </button>
+    <button class="value-btn" data-value="200">
+      <strong>R$ 200</strong><small>✈️ Patrocinador da lua de mel</small>
+    </button>
+  </div>
+
+  <label for="customValue">Outro valor (R$)</label>
+  <input type="number" id="customValue" min="1" step="0.01"
+    placeholder="Digite quanto deseja contribuir">
+</section>
+
+<section class="card">
+  <h2 class="section-title">✦ Faça seu Pix</h2>
+  <p class="section-subtitle">
+    Escolha o valor, faça o Pix e depois envie seu comprovante.
+  </p>
+
+  <div class="pix-key">
+    <small>(19) 97155-0458</small><br>
+    <strong id="pixKey">SEU-EMAIL@EXEMPLO.COM</strong>
+    <small>
+      Recebedor: Maicon Gabriel<br>
+      Banco: Sicrdi
+    </small>
+  </div>
+
+  <button class="btn btn-gold" id="copyPix">📋 Copiar chave Pix</button>
+
+  <p class="pix-info" style="margin-top:12px">
+    Depois de copiar, abra seu aplicativo bancário
+    e realize a transferência.
+  </p>
+
+  <div class="qr-placeholder">
+    <p style="font-size:12px;color:#858477;margin-bottom:12px">
+      📱 OU ESCANEIE O QR CODE DO PIX
+    </p>
+    <!-- Substitua pela imagem do seu QR Code Pix -->
+    <img src="https://placehold.co/200x200/f8f7f1/596747?text=SEU+QR+CODE"
+      alt="Espaço reservado para QR Code Pix">
+    <small style="color:#858477">QR Code Pix será disponibilizado aqui</small>
+  </div>
+</section>
+
+<section class="card" id="confirmation">
+  <h2 class="section-title">✦ Entre no sorteio!</h2>
+  <p class="section-subtitle">
+    Preencha seus dados e garanta seu ticket da sorte.
+  </p>
+
+  <form id="raffleForm">
+    <label for="guestName">Seu nome completo *</label>
+    <input type="text" id="guestName"
+      placeholder="Digite seu nome completo"
+      required maxlength="100">
+
+    <label for="message">Deixe um recadinho para os noivos 💌</label>
+    <textarea id="message" maxlength="300"
+      placeholder="Desejo toda felicidade do mundo... ❤️"></textarea>
+
+    <label>Comprovante do Pix *</label>
+    <label class="upload" for="receipt">
+      <span style="font-size:30px">📎</span>
+      <p style="margin-top:8px;font-size:13px">
+        Toque aqui para anexar seu comprovante
+      </p>
+      <small style="color:#858477">JPG, PNG ou PDF (máximo 5 MB)</small>
+      <input type="file" id="receipt"
+        accept="image/jpeg,image/png,application/pdf" required>
+    </label>
+
+    <p class="file-name" id="fileName">Nenhum arquivo selecionado.</p>
+    <img id="imagePreview" class="preview" alt="Prévia do comprovante">
+
+    <p class="notice">
+      * O nome e o comprovante são obrigatórios.
+      Confira se o arquivo corresponde ao seu pagamento.
+    </p>
+
+    <button type="submit" class="btn" id="submitBtn"
+      style="margin-top:22px" disabled>
+      🎟️ Confirmar e Entrar no Sorteio
+    </button>
+
+    <p class="loading" id="loading">
+      ✨ Preparando seu ticket da sorte...
+    </p>
+  </form>
+</section>
+
+<section class="card success" id="success">
+  <div style="font-size:48px">🥂</div>
+  <h2 class="section-title" style="margin-top:12px">
+    Você está participando!
+  </h2>
+  <p class="section-subtitle">
+    Sua contribuição foi registrada nesta demonstração.
+  </p>
+
+  <div class="ticket">
+    <p class="ticket-label">OPERAÇÃO LUA DE MEL</p>
+    <div style="font-size:28px;margin-top:14px">🎟️</div>
+    <h3 class="ticket-number" id="ticketNumber">0000</h3>
+    <p class="ticket-name" id="ticketName">Nome do convidado</p>
+    <p style="font-size:11px;color:#e8d6a9">SEU NÚMERO DA SORTE</p>
+    <hr style="border:0;border-top:1px dashed #b5c19e;margin:20px 0">
+    <p style="font-size:12px;line-height:1.7">
+      Boa sorte no sorteio!<br>
+      Com carinho, Ana & Gabriel ❤️
+    </p>
+  </div>
+
+  <p class="thank-you">
+    Muito obrigado por fazer parte desse momento tão especial
+    das nossas vidas. Sua presença e carinho tornam tudo
+    ainda mais inesquecível!
+  </p>
+
+  <button class="btn btn-gold" id="printTicket" style="margin-top:22px">
+    🖨️ Salvar / Imprimir meu ticket
+  </button>
+</section>
+
+<footer class="footer">
+  Feito com <span>♥</span> pelos noivos<br>
+  Ana & Gabriel · Nossa história continua...
+</footer>
+
+</main>
+
+<script>
+// ======================================
+// CONFIGURAÇÕES DOS NOIVOS
+// ======================================
+
+const CONFIG = {
+  pixKey: "SEU-EMAIL@EXEMPLO.COM",
+  couple: "Jenifer e Maicon",
+  prize: "Jantar especial",
+
+  // Cole aqui a URL do Formspree ou serviço equivalente.
+  endpoint: ""
+};
+
+const pixKey = document.getElementById("pixKey");
+const copyPix = document.getElementById("copyPix");
+const customValue = document.getElementById("customValue");
+const valueButtons = document.querySelectorAll(".value-btn");
+const receipt = document.getElementById("receipt");
+const fileName = document.getElementById("fileName");
+const preview = document.getElementById("imagePreview");
+const submitBtn = document.getElementById("submitBtn");
+const form = document.getElementById("raffleForm");
+const guestName = document.getElementById("guestName");
+
+pixKey.textContent = CONFIG.pixKey;
+
+// ESCOLHA DE VALORES
+
+valueButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    valueButtons.forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+    customValue.value = button.dataset.value;
+  });
+});
+
+customValue.addEventListener("input", () => {
+  valueButtons.forEach(btn => btn.classList.remove("active"));
+});
+
+// COPIAR PIX
+
+copyPix.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(CONFIG.pixKey);
+  } catch (error) {
+    const temp = document.createElement("textarea");
+    temp.value = CONFIG.pixKey;
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand("copy");
+    temp.remove();
+  }
+
+  copyPix.textContent = "✓ Chave Copiada!";
+  copyPix.style.background = "#35452f";
+
+  setTimeout(() => {
+    copyPix.textContent = "📋 Copiar chave Pix";
+    copyPix.style.background = "";
+  }, 2500);
+});
+
+// ANEXAR COMPROVANTE
+
+receipt.addEventListener("change", () => {
+  const file = receipt.files[0];
+
+  preview.style.display = "none";
+  preview.removeAttribute("src");
+
+  if (!file) {
+    fileName.textContent = "Nenhum arquivo selecionado.";
+    validateForm();
+    return;
+  }
+
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "application/pdf"
+  ];
+
+  if (!allowedTypes.includes(file.type)) {
+    alert("Formato inválido. Envie JPG, PNG ou PDF.");
+    receipt.value = "";
+    fileName.textContent = "Nenhum arquivo selecionado.";
+    validateForm();
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    alert("O arquivo deve ter no máximo 5 MB.");
+    receipt.value = "";
+    fileName.textContent = "Nenhum arquivo selecionado.";
+    validateForm();
+    return;
+  }
+
+  fileName.textContent = "✓ Arquivo: " + file.name;
+
+  if (file.type.startsWith("image/")) {
+    const reader = new FileReader();
+    reader.onload = event => {
+      preview.src = event.target.result;
+      preview.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  }
+
+  validateForm();
+});
+
+// VALIDAÇÃO
+
+function validateForm() {
+  const nameValid = guestName.value.trim().length >= 3;
+  const fileValid = receipt.files.length > 0;
+  submitBtn.disabled = !(nameValid && fileValid);
+}
+
+guestName.addEventListener("input", validateForm);
+
+// ENVIO DO FORMULÁRIO
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!guestName.value.trim() || !receipt.files.length) return;
+
+  submitBtn.disabled = true;
+  document.getElementById("loading").style.display = "block";
+
+  try {
+
+    // INTEGRAÇÃO REAL:
+    // Para enviar os dados e o arquivo, configure um backend
+    // ou serviço que aceite multipart/form-data.
+    //
+    // Exemplo de integração com Formspree:
+    //
+    // const data = new FormData();
+    // data.append("nome", guestName.value);
+    // data.append("mensagem", document.getElementById("message").value);
+    // data.append("comprovante", receipt.files[0]);
+    //
+    // const response = await fetch(CONFIG.endpoint, {
+    //   method: "POST",
+    //   body: data,
+    //   headers: { "Accept": "application/json" }
+    // });
+    //
+    // if (!response.ok) throw new Error("Falha no envio");
+    //
+    // Não coloque senhas ou chaves secretas no HTML.
+
+    // SIMULAÇÃO DE ENVIO
+    await new Promise(resolve => setTimeout(resolve, 1200));
+
+    const name = guestName.value.trim();
+    const number = Math.floor(100000 + Math.random() * 900000);
+
+    document.getElementById("ticketName").textContent = name;
+    document.getElementById("ticketNumber").textContent = number;
+
+    document.getElementById("confirmation").style.display = "none";
+    document.getElementById("success").style.display = "block";
+
+    document.getElementById("success").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+    // CONFETES
+    if (typeof confetti === "function") {
+      const duration = 2500;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 60,
+          origin: { x: 0 }
+        });
+
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 60,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+
+      confetti({
+        particleCount: 120,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ["#596747","#c5a15c","#ffffff","#e8d6a9"]
+      });
+    }
+
+  } catch (error) {
+    alert("Não foi possível concluir. Tente novamente.");
+    submitBtn.disabled = false;
+  } finally {
+    document.getElementById("loading").style.display = "none";
+  }
+});
+
+// IMPRIMIR TICKET
+
+document.getElementById("printTicket").addEventListener("click", () => {
+  window.print();
+});
+</script>
+
+</body>
+</html>
