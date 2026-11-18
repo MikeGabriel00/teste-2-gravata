@@ -235,7 +235,7 @@ textarea{resize:vertical;min-height:90px}
   <p class="eyebrow">UMA CELEBRAÇÃO DE AMOR</p>
   <div class="tie">👔</div>
   <h1>Corte a Gravata<br>dos Noivos!</h1>
-  <p class="couple">Ana & Gabriel</p>
+  <p class="couple">Jenifer & Maicon</p>
   <p class="description">
     Nossa lua de mel está chegando! 💍<br><br>
     Que tal fazer parte dessa aventura?
@@ -282,7 +282,7 @@ textarea{resize:vertical;min-height:90px}
 
   <div class="pix-key">
     <small>(19) 97155-0458</small><br>
-    <strong id="pixKey">SEU-EMAIL@EXEMPLO.COM</strong>
+    <strong id="pixKey">maiconreis950@gmail.com</strong>
     <small>
       Recebedor: Maicon Gabriel<br>
       Banco: Sicrdi
@@ -388,7 +388,7 @@ textarea{resize:vertical;min-height:90px}
 
 <footer class="footer">
   Feito com <span>♥</span> pelos noivos<br>
-  Ana & Gabriel · Nossa história continua...
+  Jenifer & Maicon · Nossa história continua...
 </footer>
 
 </main>
@@ -397,16 +397,22 @@ textarea{resize:vertical;min-height:90px}
 // ======================================
 // CONFIGURAÇÕES DOS NOIVOS
 // ======================================
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+  
 
 const CONFIG = {
-  pixKey: "SEU-EMAIL@EXEMPLO.COM",
+  supabaseUrl: "SUA_URL_DO_SUPABASE",
+  supabasePublishableKey: "SUA_CHAVE_PUBLICA",
+
+  pixKey: "19971550458",
   couple: "Jenifer e Maicon",
   prize: "Jantar especial",
 
-  // Cole aqui a URL do Formspree ou serviço equivalente.
-  endpoint: ""
+  endpoint: "https://formspree.io/f/meaggnen"
 };
-
 const pixKey = document.getElementById("pixKey");
 const copyPix = document.getElementById("copyPix");
 const customValue = document.getElementById("customValue");
